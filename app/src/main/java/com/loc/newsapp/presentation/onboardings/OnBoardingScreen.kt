@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.loc.newsapp.presentation.OnBoardingEvent
 import com.loc.newsapp.presentation.common.NewsButton
 import com.loc.newsapp.presentation.common.NextTextButton
 import com.loc.newsapp.presentation.onboardings.Diamension.IndicatorWidth
@@ -33,9 +34,12 @@ import com.loc.newsapp.ui.theme.NewsAppTheme
 import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 
+//i am not passed the viewmodel i pass the event of the viewmodel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(
+    event: (OnBoardingEvent) -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(initialPage = 0) {
             //in this pages have the list of pages information in the data class
@@ -97,8 +101,10 @@ fun OnBoardingScreen() {
                     text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if(pagerState.currentPage == 3){
+                            if(pagerState.currentPage == 2){
                                 //go to the home screen
+                                //when click this button show the true value and store this value in the datastore.
+                                event(OnBoardingEvent.SaveAppEntry)
                             }else{
                                 pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                             }
@@ -112,10 +118,10 @@ fun OnBoardingScreen() {
     }
 }
 
-@Preview()
-@Composable
-fun OnBoardingScreenPreview() {
-    NewsAppTheme {
-        OnBoardingScreen()
-    }
-}
+//@Preview()
+//@Composable
+//fun OnBoardingScreenPreview() {
+//    NewsAppTheme {
+//        OnBoardingScreen()
+//    }
+//}

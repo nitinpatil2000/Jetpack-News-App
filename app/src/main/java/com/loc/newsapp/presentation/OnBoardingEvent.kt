@@ -1,4 +1,7 @@
 package com.loc.newsapp.presentation
 
-class OnBoardingEvent {
+//todo define the sealed class because pass this event ui to view model.
+sealed class OnBoardingEvent {
+    object SaveAppEntry:OnBoardingEvent()
+
 }
